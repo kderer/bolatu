@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="headerTitle">
+			<h:outputText value="#{i18n['label.entry.list.header']}"></h:outputText>
+		</ui:define>
+		<ui:define name="content">
+			<p:dataTable id="entryDataTable"
+				value="#{personalEntryAction.lazyEntryFetcher}" var="entry"				
+				paginator="true" paginatorPosition="bottom" 
+				rows="10" lazy="true">
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.entry.list.title.header']}"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{entry.title}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.entry.list.date.header']}"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{entry.postDate}">
+						<f:convertDateTime pattern="yyyy年  MM月 dd号 HH:mm"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.entry.list.delete.header']}"></h:outputText>
+					</f:facet>
+					<p:commandButton icon="ui-icon-delete"
+						title="#{i18n['label.entry.list.delete.button.title']}"
+						action="#{personalEntryAction.deleteEntry}"
+						update="main:resultMessagePanel, entryDataTable">
+						<p:confirm icon="ui-icon-alert"
+							header="#{i18n['label.entry.list.confirm.header']}"
+							message="#{i18n['message.entry.list.delete.confirm']}" />
+						<f:setPropertyActionListener value="#{entry}" 
+							target="#{personalEntryAction.entryToDelete}">
+						</f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>						
+			</p:dataTable>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

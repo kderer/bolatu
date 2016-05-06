@@ -1,0 +1,72 @@
+.headerLeft {
+	
+}
+
+.headerRight {
+	width: 100%;
+	text-align: center;
+}
+
+.entryList {
+	text-align: center;
+}
+
+.entryList.header {
+	border-radius: 0px !important;
+}
+
+.entryList table {
+	width: 100%;
+}
+
+.entryList .left {
+	width: 30%;
+}
+
+.entryList .right {
+	width: 70%;
+	text-align: left;
+}
+
+.entryList .likePanel {
+	text-align: right;
+}
+
+.resultDialogMessageTable {
+	vertical-align: middle;
+}
+
+.entryCard {
+	margin-bottom: 10px;
+	border: gray 1px dashed;
+	width: 100%;
+}
+
+.entryCard .headerTable {
+	width: 100%;
+}
+
+.entryCard .headerTable td:nth-child(1) {
+	
+}
+
+.entryCard .headerTable td:nth-child(2) {
+	width: 90%;
+	padding: 10px;
+}
+
+.entryCard .headerTable td:nth-child(3) {
+	text-align: center;
+	width: 10%;
+}
+
+.entryCard .titleTable {
+	width: 	100%;
+	border-bottom: 1px dashed black;
+}
+
+.entryCard .title {
+	font-weight: bold;
+	font-size: large;
+	color: blue;
+}

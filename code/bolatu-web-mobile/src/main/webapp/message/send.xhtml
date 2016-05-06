@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="headerTitle">
+			<h:outputText value="#{i18n['label.message.send.header']}"></h:outputText>
+		</ui:define>
+		<ui:define name="content">		
+			<pm:field>
+				<p:outputLabel for="messageTo"
+					value="#{i18n['label.message.send.touser']}" />
+				<p:inputText id="messageTo" value="#{messageAction.message.receiver}"
+					readonly="true" required="true"/>
+				<h:inputHidden id="messageToHidden" value="#{messageAction.message.receiver}" />
+			</pm:field>
+			
+			<pm:field>
+				<p:outputLabel for="messageTitle"
+					value="#{i18n['label.message.send.title']}" />
+				<p:inputText id="messageTitle" value="#{messageAction.message.title}" 
+					required="true"/>
+			</pm:field>
+
+			<pm:field>
+				<p:outputLabel for="messageText"
+					value="#{i18n['label.message.send.text']}" />
+				<p:inputTextarea id="messageText" value="#{messageAction.message.content}"
+					required="true"/>
+			</pm:field>
+			
+			<h:inputHidden value="#{messageAction.message.parentId}" />
+
+			<p:commandButton value="#{i18n['label.message.send.send']}"
+				action="#{messageAction.doSendMessageAction}"
+				update="main:resultMessagePanel"></p:commandButton>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

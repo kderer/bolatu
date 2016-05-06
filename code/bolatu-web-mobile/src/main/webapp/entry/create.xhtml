@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="headerTitle">
+			<h:outputText value="#{i18n['label.entry.create.header']}"></h:outputText>
+		</ui:define>
+		<ui:define name="content">
+			<pm:field>
+				<p:outputLabel for="entryTitle"
+					value="#{i18n['label.entry.create.entry.title']}" />
+				<p:inputText id="entryTitle" required="true" 
+					value="#{entryAction.entry.title}" />
+			</pm:field>
+
+			<pm:field>
+				<p:outputLabel for="entryText"
+					value="#{i18n['label.entry.create.entry.text']}" />
+				<p:inputTextarea id="entryText" required="true" 
+					value="#{entryAction.entry.text}" />
+			</pm:field>
+
+			<p:commandButton value="#{i18n['label.entry.create.submit']}"
+				update="main:resultMessagePanel"
+				action="#{entryAction.doSaveAction}"></p:commandButton>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="headerTitle">
+			<h:outputText value="#{i18n['label.message.sentbox.message.header']}"></h:outputText>
+		</ui:define>
+		<ui:define name="content">		
+			<pm:field>
+				<p:outputLabel for="messageFrom"
+					value="#{i18n['label.message.sentbox.message.touser']}" />
+				<h:outputText id="messageFrom" value="#{sessionBean.selectedSentMessage.receiver}" />
+			</pm:field>
+			
+			<pm:field>
+				<p:outputLabel for="messageTitle"
+					value="#{i18n['label.message.sentbox.message.title']}" />
+				<h:outputText id="messageTitle" value="#{sessionBean.selectedSentMessage.title}" />
+			</pm:field>
+
+			<pm:field>
+				<p:outputLabel for="messageText"
+					value="#{i18n['label.message.sentbox.message.text']}" />
+				<h:outputText id="messageText" value="#{sessionBean.selectedSentMessage.content}" />
+			</pm:field>
+
+			<p:commandButton value="#{i18n['label.message.sentbox.message.delete.submit']}"
+				action="#{sentboxAction.deleteReadMessage}"
+				update="main:resultMessagePanel">
+				<p:confirm header="#{i18n['label.sentbox.delete.confirm.header']}"
+					icon="ui-icon-alert" 
+					message="#{i18n['message.sentbox.delete.confirm']}" />
+				<f:setPropertyActionListener value="#{sessionBean.selectedSentMessage}" 
+					target="#{sentboxAction.messageToDelete}">
+				</f:setPropertyActionListener>
+			</p:commandButton>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

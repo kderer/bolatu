@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"	
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pm="http://primefaces.org/mobile">
+
+<h:head></h:head>
+
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="headerTitle">
+			<h:outputText value="#{i18n['label.index.welcome']}"></h:outputText>
+		</ui:define>
+		<ui:define name="content">
+			<p:dataGrid id="entryGrid" var="entry" rows="10" rowIndexVar="rowIndex"
+				value="#{indexAction.lazyEntryFetcher}" columns="1"
+				paginator="true" paginatorPosition="bottom" lazy="true">
+				<f:facet name="header">
+					<h:outputText value="#{i18n['label.index.entrylist']}"></h:outputText>
+				</f:facet>
+
+				<h:panelGrid styleClass="entryCard" cellpadding="7">
+					<h:panelGrid columns="3" styleClass="headerTable">
+						<h:graphicImage url="#{indexAction.profilePhotoUrl}/#{entry.user.username}.png"
+							width="96" height="96" />
+						
+						<h:panelGrid>
+							<h:outputText value="#{entry.user.username}"/>
+							<h:outputText value="#{entry.user.gender}, #{entry.user.age}, #{entry.user.location}"/>							
+							<h:outputText value="#{entry.postDate}">
+								<f:convertDateTime pattern="yyyy年 MM月 dd号"/>
+							</h:outputText>
+						</h:panelGrid>
+						
+						<p:button rendered="#{!sessionBean.userLoggedIn}"
+							outcome="/login.xhtml"
+							icon="ui-icon-mail">					
+						</p:button>
+						
+						<p:commandButton action="#{indexAction.sendMessage}"
+							icon="ui-icon-mail" ajax="false"
+							rendered="#{sessionBean.userLoggedIn and sessionBean.loggedInUsername != entry.user.username}" >
+							<f:setPropertyActionListener value="#{entry.user.username}" 
+								target="#{messageAction.message.receiver}">
+							</f:setPropertyActionListener>
+						</p:commandButton>
+					</h:panelGrid>
+					
+					<h:panelGrid styleClass="titleTable">
+						<h:outputText value="#{entry.title}" styleClass="title"></h:outputText>
+					</h:panelGrid>
+					
+					<h:panelGrid>
+						<h:outputText value="#{entry.text}" />					
+					</h:panelGrid>
+					
+					<h:panelGrid styleClass="likePanel" id="likePanel"
+						columns="3">
+						
+						<p:button rendered="#{!sessionBean.userLoggedIn}"
+							outcome="/login.xhtml"
+							icon="ui-icon-heart">					
+						</p:button>
+						
+						<p:commandButton rendered="#{sessionBean.userLoggedIn}"
+							action="#{indexAction.doEntryLikeAction}"
+							update="likePanel"
+							icon="ui-icon-heart">
+							<f:setPropertyActionListener value="#{rowIndex}" 
+								target="#{indexAction.selectedEntryIndex}">
+							</f:setPropertyActionListener>						
+						</p:commandButton>
+						
+						<h:outputText value="#{i18n['label.index.entry.like']}"
+							rendered="#{sessionBean.userLoggedIn and !entry.likedUserList.contains(sessionBean.loggedInUsername)}">
+						</h:outputText>
+								
+						<h:outputText value="#{i18n['label.index.entry.unlike']}"
+							rendered="#{sessionBean.userLoggedIn and entry.likedUserList.contains(sessionBean.loggedInUsername)}">
+						</h:outputText>
+						
+						<h:outputText value="(#{entry.likedUserList.size()})" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:dataGrid>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

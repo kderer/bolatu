@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>team-bolatu</groupId>
+	<artifactId>bolatu</artifactId>
+	<version>0.1</version>
+	<packaging>pom</packaging>
+	<name>bolatu</name>
+	<modules>
+		<module>bolatu-db-api</module>
+		<module>bolatu-service-api</module>
+        <module>bolatu-util</module>
+		<module>bolatu-rest-client</module>
+		<module>bolatu-web-mobile</module>
+	</modules>
+
+</project>

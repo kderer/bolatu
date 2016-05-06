@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property resource="app-config.properties" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date %level [%class{10} : %line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 
+	<appender name="restAppender" class="ch.qos.logback.core.FileAppender">
+		<file>${app.log.folder}\\rest\\rest.log</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>rest.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+
+		<encoder>
+			<pattern>%date %level [%class{10}: %line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="serviceAppender" class="ch.qos.logback.core.FileAppender">
+		<file>${app.log.folder}\\service\\service.log</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>service.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+
+		<encoder>
+			<pattern>%date %level [%class{10}: %line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="dbAppender" class="ch.qos.logback.core.FileAppender">
+		<file>${app.log.folder}\\db\\db.log</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>db.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+
+		<encoder>
+			<pattern>%date %level [%class{10}: %line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="utilAppender" class="ch.qos.logback.core.FileAppender">
+		<file>${app.log.folder}\\util\\util.log</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>service.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+
+		<encoder>
+			<pattern>%date %level [%class{10}: %line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="allAppender" class="ch.qos.logback.core.FileAppender">
+		<file>${app.log.folder}\\all.log</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>all.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+
+		<encoder>
+			<pattern>%date %level [%class{10}: %line] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	
+	<logger name="restLogger" level="DEBUG">
+		<appender-ref ref="restAppender" />
+	</logger>
+	
+	<logger name="serviceLogger" level="DEBUG">
+		<appender-ref ref="serviceAppender" />
+	</logger>
+	
+	<logger name="dbLogger" level="DEBUG">
+		<appender-ref ref="dbAppender" />
+	</logger>
+	
+	<logger name="utilLogger" level="DEBUG">
+		<appender-ref ref="utilAppender" />
+	</logger>
+	 -->
+
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

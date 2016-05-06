@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="headerTitle">
+			<h:outputText value="#{i18n['label.message.inbox.message.header']}"></h:outputText>
+		</ui:define>
+		<ui:define name="content">		
+			<pm:field>
+				<p:outputLabel for="messageFrom"
+					value="#{i18n['label.message.inbox.message.fromuser']}" />
+				<h:outputText id="messageFrom" value="#{sessionBean.selectedMessage.sender}" />
+			</pm:field>
+			
+			<pm:field>
+				<p:outputLabel for="messageTitle"
+					value="#{i18n['label.message.inbox.message.title']}" />
+				<h:outputText id="messageTitle" value="#{sessionBean.selectedMessage.title}" />
+			</pm:field>
+
+			<pm:field>
+				<p:outputLabel for="messageText"
+					value="#{i18n['label.message.inbox.message.text']}" />
+				<h:outputText id="messageText" value="#{sessionBean.selectedMessage.content}" />
+			</pm:field>
+
+			<p:commandButton value="#{i18n['label.message.inbox.message.reply']}" ajax="false"
+				action="#{messageAction.doReplyInitAction}">
+			</p:commandButton>
+			<p:commandButton value="#{i18n['label.message.inbox.message.delete.submit']}"
+				action="#{inboxAction.deleteReadMessage}"
+				update="main:resultMessagePanel">
+				<p:confirm header="#{i18n['label.inbox.delete.confirm.header']}"
+					icon="ui-icon-alert" 
+					message="#{i18n['message.inbox.delete.confirm']}" />
+				<f:setPropertyActionListener value="#{sessionBean.selectedMessage}" 
+					target="#{inboxAction.messageToDelete}">
+				</f:setPropertyActionListener>
+			</p:commandButton>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

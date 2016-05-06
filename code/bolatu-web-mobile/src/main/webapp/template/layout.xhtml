@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+	
+<h:head>
+	<h:outputStylesheet library="css" name="bolatu-mobile.css" />
+	<h:outputScript library="js" name="bolatu-mobile.js" />
+</h:head>
+
+<h:body>	
+	<pm:page id="main">
+		<pm:header>
+			<h:form id="headerForm" prependId="false">
+				<ui:insert name="header">
+					<ui:include src="/template/header.xhtml"></ui:include>
+				</ui:insert>
+			</h:form>
+		</pm:header>
+		<pm:content>
+			<h:panelGroup id="resultMessagePanel">
+				<p:growl id="mainGrowl" />				
+				<p:dialog rendered="#{showResultDialog}" 
+					header="#{i18n['label.result.dialog.header']}"
+					widgetVar="resultDialog"
+					id="resultDialog" showEffect="pop">
+					<h:panelGrid columns="2" styleClass="resultDialogMessageTable">
+						<h:graphicImage library="image" name="done.png" width="36" height="36" />
+						<h:dataTable value="#{successMessageList}" var="message">
+							<h:column>
+								<h:outputText value="#{message}" />
+							</h:column>
+						</h:dataTable>
+					</h:panelGrid>								    
+				</p:dialog>
+				<h:panelGroup rendered="#{showResultDialog}">
+					<script>
+						$(function() {
+							PF('resultDialog').show();
+							if ('#{navigateTo}') {
+								PF('resultDialog').jq.find('.ui-header > .ui-icon-delete').on('click', function() {
+									top.location.href = '#{request.contextPath}#{navigateTo}';
+								});
+							}
+						});
+					</script>
+				</h:panelGroup>
+			</h:panelGroup>
+			
+			<p:confirmDialog global="true">
+				<p:commandButton value="#{i18n['label.confirm.button.yes']}" type="button" 
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				<p:commandButton value="#{i18n['label.confirm.button.no']}" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+			</p:confirmDialog>
+	
+			<h:form id="contentForm" prependId="false">
+				<input type="hidden" name="#{requestScope['_csrf'].parameterName}"
+					value="#{requestScope['_csrf'].token}"/>
+				<h:inputHidden id="inputUserLocation" value="#{sessionBean.userLocation}" />
+				<ui:insert name="content"></ui:insert>
+			</h:form>
+			
+			<h:form id="contentFormWithUpload" prependId="false" enctype="multipart/form-data">
+				<input type="hidden" name="#{requestScope['_csrf'].parameterName}"
+					value="#{requestScope['_csrf'].token}"/>
+				<h:inputHidden type="hidden" id="inputUserLocationWithUpload" value="#{sessionBean.userLocation}" />
+				<ui:insert name="contentWithUpload"></ui:insert>
+			</h:form>
+			
+			<h:form id="menuForm" prependId="false">
+				<input type="hidden" name="#{requestScope['_csrf'].parameterName}"
+					value="#{requestScope['_csrf'].token}"/>				
+				<p:overlayPanel for="main:btn-menu" widgetVar="pnl-basic" at="left"
+					showEffect="overlay" showCloseIcon="true">
+					<ui:insert name="menu">
+						<ui:include src="/template/menu.xhtml"></ui:include>
+					</ui:insert>
+				</p:overlayPanel>
+			</h:form>
+		</pm:content>
+	</pm:page>
+	
+	<form name="logoutForm" action="#{request.contextPath}/logout.xhtml" method="post">
+		<input type="hidden" name="#{requestScope['_csrf'].parameterName}"
+			value="#{requestScope['_csrf'].token}"/>
+	</form>
+	<p:ajaxExceptionHandler type="org.springframework.security.access.AccessDeniedException"
+       	onexception="top.location.href = '#{request.contextPath}index.xhtml" />
+</h:body>
+</html>
+
